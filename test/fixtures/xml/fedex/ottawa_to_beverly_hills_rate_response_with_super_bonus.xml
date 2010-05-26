@@ -70,11 +70,11 @@ INTERNATIONAL_FIRST; INTERNATIONAL_PRIORITY; INTERNATIONAL_ECONOMY; ; ; ; ; ; ; 
         </v8:TotalBaseCharge>
         <v8:TotalFreightDiscounts>
           <v8:Currency>CAD</v8:Currency>
-          <v8:Amount>0.0</v8:Amount>
+          <v8:Amount>15.68</v8:Amount>
         </v8:TotalFreightDiscounts>
         <v8:TotalNetFreight>
           <v8:Currency>CAD</v8:Currency>
-          <v8:Amount>36.45</v8:Amount>
+          <v8:Amount>20.77</v8:Amount>
         </v8:TotalNetFreight>
         <v8:TotalSurcharges>
           <v8:Currency>CAD</v8:Currency>
@@ -82,7 +82,7 @@ INTERNATIONAL_FIRST; INTERNATIONAL_PRIORITY; INTERNATIONAL_ECONOMY; ; ; ; ; ; ; 
         </v8:TotalSurcharges>
         <v8:TotalNetFedExCharge>
           <v8:Currency>CAD</v8:Currency>
-          <v8:Amount>38.36</v8:Amount>
+          <v8:Amount>22.68</v8:Amount>
         </v8:TotalNetFedExCharge>
         <v8:TotalTaxes>
           <v8:Currency>CAD</v8:Currency>
@@ -90,12 +90,30 @@ INTERNATIONAL_FIRST; INTERNATIONAL_PRIORITY; INTERNATIONAL_ECONOMY; ; ; ; ; ; ; 
         </v8:TotalTaxes>
         <v8:TotalNetCharge>
           <v8:Currency>CAD</v8:Currency>
-          <v8:Amount>38.36</v8:Amount>
+          <v8:Amount>22.68</v8:Amount>
         </v8:TotalNetCharge>
         <v8:TotalRebates>
           <v8:Currency>CAD</v8:Currency>
           <v8:Amount>0.0</v8:Amount>
         </v8:TotalRebates>
+        <v8:FreightDiscounts>
+          <v8:RateDiscountType>EARNED</v8:RateDiscountType>
+          <v8:Description>Grace</v8:Description>
+          <v8:Amount>
+            <v8:Currency>USD</Currency>
+            <v8:Amount>5.47</Amount>
+          </v8:Amount>
+          <v8:Percent>10.21</v8:Percent>
+        </v8:FreightDiscounts>
+        <v8:FreightDiscounts>
+          <v8:RateDiscountType>BONUS</v8:RateDiscountType>
+          <v8:Description>Automation Bonus</v8:Description>
+          <v8:Amount>
+            <v8:Currency>USD</Currency>
+            <v8:Amount>5.47</Amount>
+          </v8:Amount>
+          <v8:Percent>15.0</v8:Percent>
+        </v8:FreightDiscounts>
         <v8:Surcharges>
           <v8:SurchargeType>FUEL</v8:SurchargeType>
           <v8:Level>PACKAGE</v8:Level>

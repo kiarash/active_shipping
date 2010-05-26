@@ -4,7 +4,7 @@ class FedExTest < Test::Unit::TestCase
   def setup
     @packages               = TestFixtures.packages
     @locations              = TestFixtures.locations
-    @carrier                = FedEx.new(:key => '1111', :password => '2222', :account => '3333', :login => '4444')
+    @carrier                = FedEx.new(:key => '1111', :password => '2222', :account => '3333', :login => '4444', :discount => 0.3)
   end
   
   def test_initialize_options_requirements
@@ -74,5 +74,48 @@ class FedExTest < Test::Unit::TestCase
     assert_instance_of Hash, package_rate
     assert_instance_of Package, package_rate[:package]
     assert_nil package_rate[:rate]
+  end
+
+  def test_building_request_and_parsing_response_with_list_rates
+    expected_request = xml_fixture('fedex/ottawa_to_beverly_hills_rate_request_with_list')
+    mock_response = xml_fixture('fedex/ottawa_to_beverly_hills_rate_response_with_list')
+    Time.any_instance.expects(:to_xml_value).returns("2009-07-20T12:01:55-04:00")
+    
+    @carrier.expects(:commit).with {|request, test_mode| Hash.from_xml(request) == Hash.from_xml(expected_request) && test_mode}.returns(mock_response)
+    response = @carrier.find_rates( @locations[:ottawa],
+                                    @locations[:beverly_hills],
+                                    @packages.values_at(:book, :wii), :test => true, :list => true)
+    assert_equal ["FedEx Ground"], response.list_rates.map(&:service_name)
+    assert_equal [2836], response.list_rates.map(&:price)
+    assert_equal ["FedEx Ground"], response.rates.map(&:service_name)
+    assert_equal [3836], response.rates.map(&:price)
+  end
+
+  def test_parsing_response_with_super_bonus_uses_discounted_base_charge
+    mock_response = xml_fixture('fedex/ottawa_to_beverly_hills_rate_response_with_super_bonus')
+    Time.any_instance.expects(:to_xml_value).returns("2009-07-20T12:01:55-04:00")
+    
+    @carrier.expects(:commit).returns(mock_response)
+    response = @carrier.find_rates( @locations[:ottawa],
+                                    @locations[:beverly_hills],
+                                    @packages.values_at(:book, :wii), :test => true, :list => true)
+    assert_equal ["FedEx Ground"], response.rates.map(&:service_name)
+    # Base charge - Base charge * Discount = $25.52
+    # Net charge = $22.68
+    assert_equal [2552], response.rates.map(&:price) # Use base charge
+  end
+  
+  def test_parsing_response_with_so_so_bonus_uses_net_charge
+    mock_response = xml_fixture('fedex/ottawa_to_beverly_hills_rate_response_with_so_so_bonus')
+    Time.any_instance.expects(:to_xml_value).returns("2009-07-20T12:01:55-04:00")
+    
+    @carrier.expects(:commit).returns(mock_response)
+    response = @carrier.find_rates( @locations[:ottawa],
+                                    @locations[:beverly_hills],
+                                    @packages.values_at(:book, :wii), :test => true, :list => true)
+    assert_equal ["FedEx Ground"], response.rates.map(&:service_name)
+    # Base charge - Base charge * Discount = $25.52
+    # Net charge = $32.89
+    assert_equal [3289], response.rates.map(&:price) # Use net charge
   end
 end

@@ -46,7 +46,7 @@
         <Residential>false</Residential>
       </Address>
     </Recipient>
-    <RateRequestTypes>ACCOUNT</RateRequestTypes>
+    <RateRequestTypes>LIST</RateRequestTypes>
     <PackageCount>2</PackageCount>
     <PackageDetail>INDIVIDUAL_PACKAGES</PackageDetail>
     <RequestedPackageLineItems>

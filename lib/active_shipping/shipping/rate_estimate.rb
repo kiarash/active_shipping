@@ -11,6 +11,7 @@ module ActiveMerchant #:nodoc:
       attr_reader :currency       # 'USD', 'CAD', etc.
                                   # http://en.wikipedia.org/wiki/ISO_4217
       attr_reader :delivery_date  # Usually only available for express shipments
+      attr_reader :rate_type      # PAYOR_ACCOUNT_PACKAGE PAYOR_ACCOUNT_SHIPMENT PAYOR_LIST_PACKAGE PAYOR_LIST_SHIPMENT PAYOR_RETAIL_PACKAGE PAYOR_RETAIL_SHIPMENT RATED_ACCOUNT_PACKAGE RATED_ACCOUNT_SHIPMENT RATED_LIST_PACKAGE RATED_LIST_SHIPMENT RATED_RETAIL_PACKAGE RATED_RETAIL_SHIPMENT
         
       def initialize(origin, destination, carrier, service_name, options={})
         @origin, @destination, @carrier, @service_name = origin, destination, carrier, service_name
@@ -23,6 +24,7 @@ module ActiveMerchant #:nodoc:
         @total_price = Package.cents_from(options[:total_price])
         @currency = options[:currency]
         @delivery_date = options[:delivery_date]
+        @rate_type = options[:rate_type]
       end
       
       def total_price

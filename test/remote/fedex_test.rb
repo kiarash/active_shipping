@@ -65,6 +65,16 @@ class FedExTest < Test::Unit::TestCase
     end
   end
   
+  def test_rates_for_location_with_address
+    response = @carrier.find_rates(
+                 @locations[:beverly_hills],
+                 @locations[:real_google_as_commercial],
+                 @packages.values_at(:wii)
+               )
+
+    assert response.rates.size > 0
+  end
+  
   def test_invalid_recipient_country
     begin
       response = @carrier.find_rates(

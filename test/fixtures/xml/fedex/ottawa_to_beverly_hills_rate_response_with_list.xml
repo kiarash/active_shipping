@@ -53,10 +53,10 @@ INTERNATIONAL_FIRST; INTERNATIONAL_PRIORITY; INTERNATIONAL_ECONOMY; ; ; ; ; ; ; 
     <v8:DestinationServiceArea>A1</v8:DestinationServiceArea>
     <v8:TransitTime>FIVE_DAYS</v8:TransitTime>
     <v8:SignatureOption>SERVICE_DEFAULT</v8:SignatureOption>
-    <v8:ActualRateType>PAYOR_ACCOUNT</v8:ActualRateType>
+    <v8:ActualRateType>PAYOR_ACCOUNT_PACKAGE</v8:ActualRateType>
     <v8:RatedShipmentDetails>
       <v8:ShipmentRateDetail>
-        <v8:RateType>PAYOR_ACCOUNT</v8:RateType>
+        <v8:RateType>PAYOR_ACCOUNT_PACKAGE</v8:RateType>
         <v8:RateZone>53</v8:RateZone>
         <v8:DimDivisor>0</v8:DimDivisor>
         <v8:FuelSurchargePercent>5.25</v8:FuelSurchargePercent>
@@ -108,7 +108,7 @@ INTERNATIONAL_FIRST; INTERNATIONAL_PRIORITY; INTERNATIONAL_ECONOMY; ; ; ; ; ; ; 
       </v8:ShipmentRateDetail>
       <v8:RatedPackages>
         <v8:PackageRateDetail>
-          <v8:RateType>PAYOR_ACCOUNT</v8:RateType>
+          <v8:RateType>PAYOR_ACCOUNT_PACKAGE</v8:RateType>
           <v8:RatedWeightMethod>ACTUAL</v8:RatedWeightMethod>
           <v8:BillingWeight>
             <v8:Units>KG</v8:Units>
@@ -159,7 +159,7 @@ INTERNATIONAL_FIRST; INTERNATIONAL_PRIORITY; INTERNATIONAL_ECONOMY; ; ; ; ; ; ; 
       </v8:RatedPackages>
       <v8:RatedPackages>
         <v8:PackageRateDetail>
-          <v8:RateType>PAYOR_ACCOUNT</v8:RateType>
+          <v8:RateType>PAYOR_ACCOUNT_PACKAGE</v8:RateType>
           <v8:RatedWeightMethod>ACTUAL</v8:RatedWeightMethod>
           <v8:BillingWeight>
             <v8:Units>KG</v8:Units>
@@ -192,6 +192,161 @@ INTERNATIONAL_FIRST; INTERNATIONAL_PRIORITY; INTERNATIONAL_ECONOMY; ; ; ; ; ; ; 
           <v8:NetCharge>
             <v8:Currency>CAD</v8:Currency>
             <v8:Amount>23.3</v8:Amount>
+          </v8:NetCharge>
+          <v8:TotalRebates>
+            <v8:Currency>CAD</v8:Currency>
+            <v8:Amount>0.0</v8:Amount>
+          </v8:TotalRebates>
+          <v8:Surcharges>
+            <v8:SurchargeType>FUEL</v8:SurchargeType>
+            <v8:Level>PACKAGE</v8:Level>
+            <v8:Description>FedEx Ground Fuel</v8:Description>
+            <v8:Amount>
+              <v8:Currency>CAD</v8:Currency>
+              <v8:Amount>1.16</v8:Amount>
+            </v8:Amount>
+          </v8:Surcharges>
+        </v8:PackageRateDetail>
+      </v8:RatedPackages>
+    </v8:RatedShipmentDetails>
+    <v8:RatedShipmentDetails>
+      <v8:ShipmentRateDetail>
+        <v8:RateType>PAYOR_LIST_PACKAGE</v8:RateType>
+        <v8:RateZone>53</v8:RateZone>
+        <v8:DimDivisor>0</v8:DimDivisor>
+        <v8:FuelSurchargePercent>5.25</v8:FuelSurchargePercent>
+        <v8:TotalBillingWeight>
+          <v8:Units>LB</v8:Units>
+          <v8:Value>10.0</v8:Value>
+        </v8:TotalBillingWeight>
+        <v8:TotalBaseCharge>
+          <v8:Currency>CAD</v8:Currency>
+          <v8:Amount>26.45</v8:Amount>
+        </v8:TotalBaseCharge>
+        <v8:TotalFreightDiscounts>
+          <v8:Currency>CAD</v8:Currency>
+          <v8:Amount>0.0</v8:Amount>
+        </v8:TotalFreightDiscounts>
+        <v8:TotalNetFreight>
+          <v8:Currency>CAD</v8:Currency>
+          <v8:Amount>26.45</v8:Amount>
+        </v8:TotalNetFreight>
+        <v8:TotalSurcharges>
+          <v8:Currency>CAD</v8:Currency>
+          <v8:Amount>1.91</v8:Amount>
+        </v8:TotalSurcharges>
+        <v8:TotalNetFedExCharge>
+          <v8:Currency>CAD</v8:Currency>
+          <v8:Amount>28.36</v8:Amount>
+        </v8:TotalNetFedExCharge>
+        <v8:TotalTaxes>
+          <v8:Currency>CAD</v8:Currency>
+          <v8:Amount>0.0</v8:Amount>
+        </v8:TotalTaxes>
+        <v8:TotalNetCharge>
+          <v8:Currency>CAD</v8:Currency>
+          <v8:Amount>28.36</v8:Amount>
+        </v8:TotalNetCharge>
+        <v8:TotalRebates>
+          <v8:Currency>CAD</v8:Currency>
+          <v8:Amount>0.0</v8:Amount>
+        </v8:TotalRebates>
+        <v8:Surcharges>
+          <v8:SurchargeType>FUEL</v8:SurchargeType>
+          <v8:Level>PACKAGE</v8:Level>
+          <v8:Description>FedEx Ground Fuel</v8:Description>
+          <v8:Amount>
+            <v8:Currency>CAD</v8:Currency>
+            <v8:Amount>1.91</v8:Amount>
+          </v8:Amount>
+        </v8:Surcharges>
+      </v8:ShipmentRateDetail>
+      <v8:RatedPackages>
+        <v8:PackageRateDetail>
+          <v8:RateType>PAYOR_LIST_PACKAGE</v8:RateType>
+          <v8:RatedWeightMethod>ACTUAL</v8:RatedWeightMethod>
+          <v8:BillingWeight>
+            <v8:Units>KG</v8:Units>
+            <v8:Value>1.0</v8:Value>
+          </v8:BillingWeight>
+          <v8:BaseCharge>
+            <v8:Currency>CAD</v8:Currency>
+            <v8:Amount>9.31</v8:Amount>
+          </v8:BaseCharge>
+          <v8:TotalFreightDiscounts>
+            <v8:Currency>CAD</v8:Currency>
+            <v8:Amount>0.0</v8:Amount>
+          </v8:TotalFreightDiscounts>
+          <v8:NetFreight>
+            <v8:Currency>CAD</v8:Currency>
+            <v8:Amount>9.31</v8:Amount>
+          </v8:NetFreight>
+          <v8:TotalSurcharges>
+            <v8:Currency>CAD</v8:Currency>
+            <v8:Amount>0.75</v8:Amount>
+          </v8:TotalSurcharges>
+          <v8:NetFedExCharge>
+            <v8:Currency>CAD</v8:Currency>
+            <v8:Amount>10.06</v8:Amount>
+          </v8:NetFedExCharge>
+          <v8:TotalTaxes>
+            <v8:Currency>CAD</v8:Currency>
+            <v8:Amount>0.0</v8:Amount>
+          </v8:TotalTaxes>
+          <v8:NetCharge>
+            <v8:Currency>CAD</v8:Currency>
+            <v8:Amount>10.06</v8:Amount>
+          </v8:NetCharge>
+          <v8:TotalRebates>
+            <v8:Currency>CAD</v8:Currency>
+            <v8:Amount>0.0</v8:Amount>
+          </v8:TotalRebates>
+          <v8:Surcharges>
+            <v8:SurchargeType>FUEL</v8:SurchargeType>
+            <v8:Level>PACKAGE</v8:Level>
+            <v8:Description>FedEx Ground Fuel</v8:Description>
+            <v8:Amount>
+              <v8:Currency>CAD</v8:Currency>
+              <v8:Amount>0.75</v8:Amount>
+            </v8:Amount>
+          </v8:Surcharges>
+        </v8:PackageRateDetail>
+      </v8:RatedPackages>
+      <v8:RatedPackages>
+        <v8:PackageRateDetail>
+          <v8:RateType>PAYOR_LIST_PACKAGE</v8:RateType>
+          <v8:RatedWeightMethod>ACTUAL</v8:RatedWeightMethod>
+          <v8:BillingWeight>
+            <v8:Units>KG</v8:Units>
+            <v8:Value>4.0</v8:Value>
+          </v8:BillingWeight>
+          <v8:BaseCharge>
+            <v8:Currency>CAD</v8:Currency>
+            <v8:Amount>17.14</v8:Amount>
+          </v8:BaseCharge>
+          <v8:TotalFreightDiscounts>
+            <v8:Currency>CAD</v8:Currency>
+            <v8:Amount>0.0</v8:Amount>
+          </v8:TotalFreightDiscounts>
+          <v8:NetFreight>
+            <v8:Currency>CAD</v8:Currency>
+            <v8:Amount>17.14</v8:Amount>
+          </v8:NetFreight>
+          <v8:TotalSurcharges>
+            <v8:Currency>CAD</v8:Currency>
+            <v8:Amount>1.16</v8:Amount>
+          </v8:TotalSurcharges>
+          <v8:NetFedExCharge>
+            <v8:Currency>CAD</v8:Currency>
+            <v8:Amount>18.3</v8:Amount>
+          </v8:NetFedExCharge>
+          <v8:TotalTaxes>
+            <v8:Currency>CAD</v8:Currency>
+            <v8:Amount>0.0</v8:Amount>
+          </v8:TotalTaxes>
+          <v8:NetCharge>
+            <v8:Currency>CAD</v8:Currency>
+            <v8:Amount>18.3</v8:Amount>
           </v8:NetCharge>
           <v8:TotalRebates>
             <v8:Currency>CAD</v8:Currency>

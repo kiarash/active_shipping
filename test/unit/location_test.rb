@@ -12,6 +12,14 @@ class LocationTest < Test::Unit::TestCase
     assert_equal 'CA', @locations[:ottawa].country_code(:alpha2)
   end
   
+  def test_country_code_with_active_merchant_1_5_1_country
+    code = @locations[:ottawa].country.code(:alpha2).first # Get the right code first
+    @locations[:ottawa].country.stubs(:code).with(:alpha2).returns(code) # This is how code behaves in ActiveMerchant v1.5.1 (returning first code instead of array of codes)
+
+    assert_instance_of ActiveMerchant::Country, @locations[:ottawa].country
+    assert_equal 'CA', @locations[:ottawa].country_code(:alpha2)
+  end
+  
   def test_location_from_strange_hash
     hash = {  :country => 'CA',
               :zip => '90210',
