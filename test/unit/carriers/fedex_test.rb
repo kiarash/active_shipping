@@ -100,9 +100,9 @@ class FedExTest < Test::Unit::TestCase
                                     @locations[:beverly_hills],
                                     @packages.values_at(:book, :wii), :test => true, :list => true)
     assert_equal ["FedEx Ground"], response.rates.map(&:service_name)
-    # Base charge - Base charge * Discount = $25.52
+    # (Base charge + Surcharges) - Base charge * Discount = $27.43
     # Net charge = $22.68
-    assert_equal [2552], response.rates.map(&:price) # Use base charge
+    assert_equal [2743], response.rates.map(&:price) # Use base charge
   end
   
   def test_parsing_response_with_so_so_bonus_uses_net_charge
@@ -114,7 +114,7 @@ class FedExTest < Test::Unit::TestCase
                                     @locations[:beverly_hills],
                                     @packages.values_at(:book, :wii), :test => true, :list => true)
     assert_equal ["FedEx Ground"], response.rates.map(&:service_name)
-    # Base charge - Base charge * Discount = $25.52
+    # (Base charge + Surcharges) - Base charge * Discount = $27.43
     # Net charge = $32.89
     assert_equal [3289], response.rates.map(&:price) # Use net charge
   end

@@ -242,9 +242,10 @@ module ActiveMerchant
             
             if @options[:discount]
               base_charge = rated_shipment_details.get_text('ShipmentRateDetail/TotalBaseCharge/Amount').to_s.to_f
+              surcharges = rated_shipment_details.get_text('ShipmentRateDetail/TotalSurcharges/Amount').to_s.to_f
               discounted_base_charge = base_charge * (1.0 - @options[:discount])
-              discounted_base_charge = (discounted_base_charge * 100).round / 100.0
-              total_price = discounted_base_charge >= net_charge ? discounted_base_charge : net_charge
+              net_base_charge = ((discounted_base_charge + surcharges) * 100).round / 100.0
+              total_price = net_base_charge >= net_charge ? net_base_charge : net_charge
             else
               total_price = net_charge
             end
