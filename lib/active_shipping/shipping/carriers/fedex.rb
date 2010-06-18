@@ -237,8 +237,8 @@ module ActiveMerchant
           # service_type = is_saturday_delivery ? "#{service_code}_SATURDAY_DELIVERY" : service_code
           service_type = is_saturday_delivery ? "#{rated_reply_details.get_text('ServiceType').to_s}_SATURDAY_DELIVERY" : rated_reply_details.get_text('ServiceType').to_s
           
-		  delivery_date = rated_reply_details.get_text('DeliveryTimestamp').to_s
-		  delivery_date = Time.parse(delivery_date) if delivery_date
+          delivery_date = rated_reply_details.get_text('DeliveryTimestamp').to_s
+          delivery_date = Time.parse(delivery_date) if delivery_date
 		  
           rated_reply_details.elements.each('RatedShipmentDetails') do |rated_shipment_details|
             net_charge = rated_shipment_details.get_text('ShipmentRateDetail/TotalNetCharge/Amount').to_s.to_f
