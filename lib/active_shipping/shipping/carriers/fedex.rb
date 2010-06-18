@@ -128,7 +128,7 @@ module ActiveMerchant
           root_node << XmlNode.new('VariableOptions', 'SATURDAY_DELIVERY')
 
           root_node << XmlNode.new('RequestedShipment') do |rs|
-            rs << XmlNode.new('ShipTimestamp', Time.now)
+            rs << XmlNode.new('ShipTimestamp', options[:ship_timestamp] || Time.now)
             rs << XmlNode.new('DropoffType', options[:dropoff_type] || 'REGULAR_PICKUP')
             rs << XmlNode.new('PackagingType', options[:packaging_type] || 'YOUR_PACKAGING')
 
@@ -236,7 +236,10 @@ module ActiveMerchant
           is_saturday_delivery = rated_reply_details.get_text('AppliedOptions').to_s == 'SATURDAY_DELIVERY'
           # service_type = is_saturday_delivery ? "#{service_code}_SATURDAY_DELIVERY" : service_code
           service_type = is_saturday_delivery ? "#{rated_reply_details.get_text('ServiceType').to_s}_SATURDAY_DELIVERY" : rated_reply_details.get_text('ServiceType').to_s
-
+          
+		  delivery_date = rated_reply_details.get_text('DeliveryTimestamp').to_s
+		  delivery_date = Time.parse(delivery_date) if delivery_date
+		  
           rated_reply_details.elements.each('RatedShipmentDetails') do |rated_shipment_details|
             net_charge = rated_shipment_details.get_text('ShipmentRateDetail/TotalNetCharge/Amount').to_s.to_f
             
@@ -256,7 +259,7 @@ module ActiveMerchant
                                 :total_price => total_price,
                                 :currency => rated_shipment_details.get_text('ShipmentRateDetail/TotalNetCharge/Currency').to_s,
                                 :packages => packages,
-                                :delivery_date => rated_shipment_details.get_text('DeliveryTimestamp').to_s,
+                                :delivery_date => delivery_date,
                                 :rate_type => rated_shipment_details.get_text('ShipmentRateDetail/RateType').to_s)
           end
         end

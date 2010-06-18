@@ -142,4 +142,30 @@ class FedExTest < Test::Unit::TestCase
     end
   end
   
+  def test_delivery_date
+    response = @carrier.find_rates(
+                 @locations[:beverly_hills],
+                 @locations[:ottawa],
+                 @packages.values_at(:wii)
+               )
+    assert !response.rates.reject { |rate| rate.delivery_date.nil? }.empty?
+  end
+
+  def test_delivery_date_with_optional_date
+
+    response = @carrier.find_rates(
+                 @locations[:beverly_hills],
+                 @locations[:ottawa],
+                 @packages.values_at(:wii),
+                 :ship_timestamp => Time.now.tomorrow
+               )
+    assert !response.rates.reject { |rate| rate.delivery_date.nil? }.empty?
+  end
+
+  private
+
+  def delivery_date(response)
+    response.rates.sort_by(&:price).map { |rate| [rate.service_name, rate.delivery_date] }
+  end
+  
 end
