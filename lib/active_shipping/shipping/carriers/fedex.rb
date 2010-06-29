@@ -95,7 +95,7 @@ module ActiveMerchant
         rate_request = build_rate_request(origin, destination, packages, options)
 
         response = commit(save_request(rate_request), (options[:test] || false)).gsub(/<(\/)?.*?\:(.*?)>/, '<\1\2>')
-
+        
         parse_rate_response(origin, destination, packages, response, options)
       end
 
@@ -224,7 +224,7 @@ module ActiveMerchant
       def parse_rate_response(origin, destination, packages, response, options)
         rate_estimates = []
         success, message = nil
-
+        #File.open("fedex-#{Time.now.to_i}.xml", 'w') { |f| f.write response.to_s }
         xml = REXML::Document.new(response)
         root_node = xml.elements['RateReply']
 
@@ -237,9 +237,23 @@ module ActiveMerchant
           # service_type = is_saturday_delivery ? "#{service_code}_SATURDAY_DELIVERY" : service_code
           service_type = is_saturday_delivery ? "#{rated_reply_details.get_text('ServiceType').to_s}_SATURDAY_DELIVERY" : rated_reply_details.get_text('ServiceType').to_s
           
-          delivery_date = rated_reply_details.get_text('DeliveryTimestamp').to_s
-          delivery_date = Time.parse(delivery_date) if delivery_date
-		  
+          if service_type == 'FEDEX_GROUND'
+            delivery_date = rated_reply_details.get_text('TransitTime').to_s
+            case delivery_date
+            when 'ONE_DAYS' then delivery_date = 'One'
+            when 'TWO_DAYS' then delivery_date = 'Two'
+            when 'THREE_DAYS' then delivery_date = 'Three'
+            when 'FOUR_DAYS' then delivery_date = 'Four'
+            when 'FIVE_DAYS' then delivery_date = 'Five'
+            when 'SIX_DAYS' then delivery_date = 'Six'
+            else delivery_date = 'More han seven'
+            end
+            delivery_date = delivery_date << " FedEx's business days."
+          else
+            delivery_date = rated_reply_details.get_text('DeliveryTimestamp').to_s
+            delivery_date = Time.parse(delivery_date) if delivery_date
+		      end
+		      
           rated_reply_details.elements.each('RatedShipmentDetails') do |rated_shipment_details|
             net_charge = rated_shipment_details.get_text('ShipmentRateDetail/TotalNetCharge/Amount').to_s.to_f
             
