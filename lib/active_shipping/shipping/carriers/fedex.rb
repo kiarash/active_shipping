@@ -246,9 +246,9 @@ module ActiveMerchant
             when 'FOUR_DAYS' then delivery_date = 'Four'
             when 'FIVE_DAYS' then delivery_date = 'Five'
             when 'SIX_DAYS' then delivery_date = 'Six'
-            else delivery_date = 'More han seven'
+            else delivery_date = 'More than seven'
             end
-            delivery_date = delivery_date << " FedEx's business days."
+            delivery_date = delivery_date << " FedEx business days."
           else
             delivery_date = rated_reply_details.get_text('DeliveryTimestamp').to_s
             delivery_date = Time.parse(delivery_date) if delivery_date
