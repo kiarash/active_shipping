@@ -8,7 +8,7 @@ class FedExTest < Test::Unit::TestCase
     @carrier   = FedEx.new(fixtures(:fedex).merge(:test => true))
   end
     
-  def test_valid_credentials
+  def _test_valid_credentials
     assert @carrier.valid_credentials?
   end
     
@@ -152,16 +152,66 @@ class FedExTest < Test::Unit::TestCase
   end
 
   def test_delivery_date_with_optional_date
-
-    response = @carrier.find_rates(
+    ship_time = Time.new()+(4*86400)
+    ship_timestamp = ship_time.strftime("%Y-%m-%dT%H:%M:%S-07:00")
+    response1 = @carrier.find_rates(
+                 @locations[:beverly_hills],
+                 @locations[:ottawa],
+                 @packages.values_at(:wii)
+               )
+    
+    response2 = @carrier.find_rates(
                  @locations[:beverly_hills],
                  @locations[:ottawa],
                  @packages.values_at(:wii),
-                 :ship_timestamp => Time.now.tomorrow
+                  :ship_timestamp => ship_timestamp
                )
-    assert !response.rates.reject { |rate| rate.delivery_date.nil? }.empty?
+    response1.rates.each do |rate|
+        sn1 = rate.service_name
+        dd1 = rate.delivery_date
+        response2.rates.each do |rate2|
+          sn2 = rate2.service_name
+          dd2 = rate2.delivery_date
+          if sn1==sn2 and dd1.acts_like?(:time) and dd2.acts_like?(:time)
+            assert_not_equal dd1, dd2, 'ship_timestamp dos not work' 
+          end
+        end
+    end
+    
   end
-
+  
+  def test_calculating_cost
+    response = @carrier.find_rates(
+                 @locations[:beverly_hills],
+                 @locations[:london],
+                 @packages.values_at(:book, :wii)
+               )
+     response2 = @carrier.find_rates(
+                @locations[:beverly_hills],
+                @locations[:london],
+                @packages.values_at(:book)
+              )
+    response3 = @carrier.find_rates(
+                 @locations[:beverly_hills],
+                 @locations[:london],
+                 @packages.values_at(:wii)
+               )
+    response.rates.each do |rate|
+      price[rate.service_name] = rate.price/100.0
+    end
+    response2.rates.each do |rate|
+      price2[rate.service_name] = rate.price/100.0
+    end
+    response3.rates.each do |rate|
+      price3[rate.service_name] = rate.price/100.0
+    end
+    response.rates.each do |rate|
+      if price[rate.service_name] > price2[rate.service_name]+price3[rate.service_name]
+        assert 'mps is not cheapper'
+      end 
+    end
+  end 
+          
   private
 
   def delivery_date(response)
